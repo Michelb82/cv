@@ -1,0 +1,21 @@
+version: "3.8"
+
+services:
+  cv:
+    build: .
+    container_name: cv
+    user: "node"
+    working_dir: /home/node/app
+    volumes:
+      - ./src:/home/node/app/src
+      - ./public:/home/node/app/public
+
+  nginx:
+    image: nginx:alpine
+    container_name: nginx
+    ports:
+      - 80:80
+    volumes:
+      - ./container/nginx/log:/var/log/nginx
+      - ./container/static:/root/app/static
+      - ./container/nginx/etc:/etc/nginx
